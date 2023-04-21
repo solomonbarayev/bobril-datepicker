@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "bobril": "^20.4.1",
+    "bobril-build": "^2.4.0"
+  }
+}
