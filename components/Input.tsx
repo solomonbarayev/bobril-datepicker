@@ -3,6 +3,7 @@ import * as b from "bobril";
 interface InputProps {
   placeholder: string;
   type: string;
+  dateSelected: string;
   onClick: () => void;
 }
 
@@ -12,28 +13,10 @@ export const Input = (props: InputProps) => {
       placeholder={props.placeholder}
       type={props.type}
       onClick={props.onClick}
+      id="datepicker-input"
+      value={`${props.dateSelected.split("-")[2]}/${
+        props.dateSelected.split("-")[1]
+      }/${props.dateSelected.split("-")[0]}`}
     />
   );
 };
-
-// export interface IInputData {
-//   placeholder: string;
-//   type: string;
-//   onClick: () => void;
-// }
-
-// interface IInputCtx extends b.IBobrilCtx {
-//   data: IInputData;
-// }
-
-// export const Input = b.createVirtualComponent({
-//   id: "input",
-//   render(ctx: IInputCtx, me: b.IBobrilNode) {
-//     me.children = (
-//       <>
-//         <input placeholder={ctx.data.placeholder} type={ctx.data.type}
-//         onClick={this.onClick}/>
-//       </>
-//     );
-//   },
-// });

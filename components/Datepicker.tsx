@@ -9,16 +9,22 @@ interface IDatepickerProps {
   open: boolean;
   type?: string;
   dateSelected: string;
+  setDateSelected: (date: string) => void;
   setOpen: (open: boolean) => void;
 }
 
-export const Datepicker = (props: IDatepickerProps) => {
+export const Datepicker = ({
+  open,
+  dateSelected,
+  setDateSelected,
+  setOpen,
+}: IDatepickerProps) => {
   const [currentView, setCurrentView] = b.useState("day");
-  const [dateSelected, setDateSelected] = b.useState(
-    `${new Date().getFullYear()}-${
-      new Date().getMonth() + 1
-    }-${new Date().getDate()}`
-  );
+  // const [dateSelected, setDateSelected] = b.useState(
+  //   `${new Date().getFullYear()}-${
+  //     new Date().getMonth() + 1
+  //   }-${new Date().getDate()}`
+  // );
   const [yearSelected, setYearSelected] = b.useState(
     dateSelected.split("-")[0]
   );
@@ -40,13 +46,13 @@ export const Datepicker = (props: IDatepickerProps) => {
 
   function onOverlayClick(e: b.IBobrilMouseEvent) {
     if (e.target.className === "datepicker open") {
-      props.setOpen(false);
+      setOpen(false);
     }
   }
 
   return (
     <div
-      className={`${props.open ? "datepicker open" : "datepicker"}`}
+      className={`${open ? "datepicker open" : "datepicker"}`}
       onClick={onOverlayClick}
     >
       <div className="datepicker-container">
@@ -99,13 +105,13 @@ export const Datepicker = (props: IDatepickerProps) => {
         <div className="datepicker-footer">
           <button
             className="datepicker-footer__button"
-            onClick={() => props.setOpen(false)}
+            onClick={() => setOpen(false)}
           >
             בחר
           </button>
           <button
             className="datepicker-footer__button"
-            onClick={() => props.setOpen(false)}
+            onClick={() => setOpen(false)}
           >
             בטל
           </button>
