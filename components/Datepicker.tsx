@@ -62,7 +62,6 @@ export const Datepicker = (props: IDatepickerProps) => {
         <div className="datepicker-body">
           <BodyNav
             type={currentView}
-            dateSelected={dateSelected}
             currentView={currentView}
             yearSelected={yearSelected}
             monthSelected={monthSelected}

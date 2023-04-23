@@ -16,7 +16,6 @@ export const App = () => {
         open={open}
         setOpen={setOpen}
         dateSelected={new Date().toISOString().split("T")[0]}
-        setOpen={setOpen}
       />
     </>
   );

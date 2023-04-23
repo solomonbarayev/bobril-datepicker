@@ -3,7 +3,6 @@ import * as constants from "../constants";
 
 interface IBodyNavProps {
   type: string;
-  dateSelected: string;
   currentView: string;
   monthSelected: string;
   yearSelected: string;
@@ -15,8 +14,6 @@ interface IBodyNavProps {
 export const BodyNav = (props: IBodyNavProps) => {
   const monthSelected = Number(props.monthSelected) - 1;
   const yearSelected = props.yearSelected;
-
-  const [dateSelected, setDateSelected] = b.useState(props.dateSelected);
 
   function onPreviousClick() {
     if (props.type === "day") {
