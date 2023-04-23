@@ -2,28 +2,22 @@ import * as b from "bobril";
 import { Input } from "./components/Input";
 import { Datepicker } from "./components/Datepicker";
 
-interface IAppData {
-  open: boolean;
-}
+export const App = () => {
+  const [open, setOpen] = b.useState(false);
 
-interface IAppCtx extends b.IBobrilCtx {
-  data: IAppData;
-}
+  function onInputClick() {
+    setOpen(true);
+  }
 
-export const App = b.createVirtualComponent({
-  id: "app",
-  render(ctx: IAppCtx, me: b.IBobrilNode) {
-    me.children = (
-      <>
-        <h1>Datepicker</h1>
-        <Input placeholder={"Date"} type="text" onClick={() => onClick(ctx)} />
-        <Datepicker open={ctx.data.open} />
-      </>
-    );
-  },
-});
-
-function onClick(ctx: b.IBobrilCtx) {
-  ctx.data.open = true;
-  b.invalidate(ctx);
-}
+  return (
+    <>
+      <Input placeholder={"Date"} type="text" onClick={onInputClick} />
+      <Datepicker
+        open={open}
+        setOpen={setOpen}
+        dateSelected={new Date().toISOString().split("T")[0]}
+        setOpen={setOpen}
+      />
+    </>
+  );
+};

@@ -1,24 +1,69 @@
 import * as b from "bobril";
+import * as constants from "../constants";
 
-export interface IBodyNavData {
+interface IBodyNavProps {
   type: string;
+  dateSelected: string;
+  currentView: string;
+  monthSelected: string;
+  yearSelected: string;
+  setMonthSelected: (month: string) => void;
+  setYearSelected: (year: string) => void;
+  setCurrentView: (view: string) => void;
 }
 
-interface IBodyNavCtx extends b.IBobrilCtx {
-  data: IBodyNavData;
-}
+export const BodyNav = (props: IBodyNavProps) => {
+  const monthSelected = Number(props.monthSelected) - 1;
+  const yearSelected = props.yearSelected;
 
-export const BodyNav = b.createVirtualComponent({
-  id: "body-nav",
-  render(ctx: IBodyNavCtx, me: b.IBobrilNode) {
-    me.children = (
-      <div className="datepicker-body-header">
-        <button className="datepicker-previous">&lt;</button>
-        <div className="datepicker-header-text">
-          {(ctx.data.type = "day" ? "april 2022" : "2022")}
-        </div>
-        <button className="datepicker-next">&gt;</button>
+  const [dateSelected, setDateSelected] = b.useState(props.dateSelected);
+
+  function onPreviousClick() {
+    if (props.type === "day") {
+      if (monthSelected === 0) {
+        props.setMonthSelected("12");
+        props.setYearSelected(String(Number(yearSelected) - 1));
+      } else {
+        props.setMonthSelected(String(monthSelected));
+      }
+    } else {
+      props.setYearSelected(String(Number(yearSelected) - 1));
+    }
+  }
+
+  function onNextClick() {
+    if (props.type === "day") {
+      if (monthSelected === 11) {
+        props.setMonthSelected("1");
+        props.setYearSelected(String(Number(yearSelected) + 1));
+      } else {
+        props.setMonthSelected(String(monthSelected + 2));
+      }
+    } else {
+      props.setYearSelected(String(Number(yearSelected) + 1));
+    }
+  }
+
+  return (
+    <div className="datepicker-body-header">
+      <button className="datepicker-previous" onClick={onPreviousClick}>
+        &lt;
+      </button>
+      <div
+        className="datepicker-header-text"
+        onClick={() =>
+          props.currentView == "day"
+            ? props.setCurrentView("month")
+            : props.setCurrentView("year")
+        }
+      >
+        {props.type === "day"
+          ? constants.months[Number(monthSelected)] + " " + yearSelected
+          : yearSelected}
       </div>
-    );
-  },
-});
+      <button className="datepicker-next" onClick={onNextClick}>
+        &gt;
+      </button>
+    </div>
+  );
+};
